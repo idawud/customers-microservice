@@ -3,6 +3,7 @@ package io.turntabl.springwebservice.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.turntabl.springwebservice.models.Customer;
+import io.turntabl.springwebservice.pubsub.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,9 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerDAO dao;
+
+    @Autowired
+    private Publisher redisMessagePublisher;
 
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")

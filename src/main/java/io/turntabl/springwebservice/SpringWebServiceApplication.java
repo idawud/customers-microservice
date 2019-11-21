@@ -1,6 +1,6 @@
 package io.turntabl.springwebservice;
 
-import io.turntabl.springwebservice.controllers.CustomerDAO;
+import io.turntabl.springwebservice.DAOs.CustomerDAO;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

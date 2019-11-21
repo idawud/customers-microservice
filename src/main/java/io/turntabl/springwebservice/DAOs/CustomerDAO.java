@@ -1,4 +1,4 @@
-package io.turntabl.springwebservice.controllers;
+package io.turntabl.springwebservice.DAOs;
 
 import io.turntabl.springwebservice.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;

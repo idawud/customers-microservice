@@ -2,6 +2,7 @@ package io.turntabl.springwebservice.controllers;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.turntabl.springwebservice.DAOs.CustomerDAO;
 import io.turntabl.springwebservice.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

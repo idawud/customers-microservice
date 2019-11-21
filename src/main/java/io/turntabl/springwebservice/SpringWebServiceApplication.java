@@ -14,11 +14,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SpringWebServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringWebServiceApplication.class, args);
+
 	}
 
 	@Bean
 	public CustomerDAO getCustomerDAO() {
 		return new CustomerDAO();
 	}
- 
+
 }

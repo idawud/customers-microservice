@@ -11,6 +11,19 @@ public class CustomerDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    public CustomerDAO() {
+        String initQuery = "" +
+                "CREATE TABLE IF NOT EXISTS customers(\n" +
+                "   id serial PRIMARY KEY,\n" +
+                "   name VARCHAR (150) NOT NULL,\n" +
+                "   address VARCHAR (150) NOT NULL,\n" +
+                "   telephoneNumber VARCHAR (50) NOT NULL,\n" +
+                "   email VARCHAR (355) UNIQUE NOT NULL,\n" +
+                "   active BOOL DEFAULT 't'\n" +
+                ");";
+        jdbcTemplate.update(initQuery);
+    }
+
     List<Customer> getAllCustomers(){
         List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'yes'",
                 BeanPropertyRowMapper.newInstance(Customer.class));

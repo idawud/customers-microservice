@@ -14,15 +14,6 @@ import java.sql.DriverManager;
 
 @Configuration
 public class DatabaseConfig {
-    String initQuery = "" +
-            "CREATE TABLE IF NOT EXISTS customers(\n" +
-            "   id serial PRIMARY KEY,\n" +
-            "   name VARCHAR (150) NOT NULL,\n" +
-            "   address VARCHAR (150) NOT NULL,\n" +
-            "   telephoneNumber VARCHAR (50) NOT NULL,\n" +
-            "   email VARCHAR (355) UNIQUE NOT NULL,\n" +
-            "   active BOOL DEFAULT 't'\n" +
-            ");";
 
     @Bean
     @Profile("postgres")
@@ -52,12 +43,5 @@ public class DatabaseConfig {
         return dataSource;
     }
 
-    /**
-    @Bean
-    public DataSource dbConnect() throws ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
-        String dbUrl = "jdbc:postgres://fatozvbztjkqfh:3550fdca7e812d85c97af0afc5c90cd050bc117d701260d689096165b03882e3@ec2-174-129-27-3.compute-1.amazonaws.com:5432/de4kfrlvkp6d3v";
-        return new DriverManager(dbUrl, "fatozvbztjkqfh", "3550fdca7e812d85c97af0afc5c90cd050bc117d701260d689096165b03882e3");
-    }*/
 
 }

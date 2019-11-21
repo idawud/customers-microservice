@@ -1,39 +1,34 @@
 package io.turntabl.springwebservice.configurations;
 
 import io.turntabl.springwebservice.models.Customer;
-import io.turntabl.springwebservice.pubsub.Publisher;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
-import org.springframework.data.redis.serializer.GenericToStringSerializer;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.Protocol;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @Configuration
 public class RedisConfig {
     @Bean
-    JedisConnectionFactory jedisConnectionFactory() {
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setPort();
+    public RedisConnectionFactory jedisConnectionFactory(){
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
+        poolConfig.maxActive = 10;
+        poolConfig.maxIdle = 5;
+        poolConfig.minIdle = 1;
+        poolConfig.testOnBorrow = true;
+        poolConfig.testOnReturn = true;
+        poolConfig.testWhileIdle = true;
+        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(poolConfig);
         return jedisConnectionFactory;
     }
 
+
     @Bean
-    public RedisTemplate<String, Customer> redisTemplate() {
-        final RedisTemplate<String, Customer> template = new RedisTemplate<String, Customer>();
-        template.setConnectionFactory(jedisConnectionFactory());
-        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(Customer.class));
+    RedisTemplate<String, Customer> redisTemplate(JedisConnectionFactory jedisConnectionFactory) {
+        RedisTemplate<String, Customer> template = new RedisTemplate<String, Customer>();
+        template.setConnectionFactory(jedisConnectionFactory);
         return template;
     }
 

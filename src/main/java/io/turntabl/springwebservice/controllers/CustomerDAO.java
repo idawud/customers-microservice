@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDAO {
@@ -14,7 +15,10 @@ public class CustomerDAO {
     List<Customer> getAllCustomers(){
         List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'yes'",
                 BeanPropertyRowMapper.newInstance(Customer.class));
-        return customers;
+        if ( customers.size() > 0) {
+            return customers;
+        }
+        return new ArrayList<>();
     }
 
     List<Customer> getCustomerByName(String name){

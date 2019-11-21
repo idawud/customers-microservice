@@ -70,8 +70,14 @@ public class CustomerController {
     public Customer deleteCustomer(
             @PathVariable("id") long id
     ){
-        Customer customerById = dao.getCustomerById(id);
-
         return dao.deleteCustomer(id);
+    }
+
+    @ApiOperation("delete record of an existing customer")
+    @PutMapping(value = "/customer/retrieve/{id}")
+    public Customer retrieveCustomer(
+            @PathVariable("id") long id
+    ){
+        return dao.retrieveDeletedCustomer(id);
     }
 }

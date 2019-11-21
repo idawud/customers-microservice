@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,7 +22,19 @@ public class CustomerController {
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
     public List<Customer> getCustomer(){
-        List<Customer> customers = jdbcTemplate.query("select * from customers",
+        List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers",
+                BeanPropertyRowMapper.newInstance(Customer.class));
+        return customers;
+    }
+
+    @ApiOperation("get customers by name")
+    @GetMapping("/customer/name")
+    public List<Customer> getCustomerByName(
+            @RequestParam(name = "name", defaultValue = "")
+            String name
+    ){
+        List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE LOWER(name) LIKE ?" ,
+                new Object []{ "%" + name.toLowerCase() + "%"},
                 BeanPropertyRowMapper.newInstance(Customer.class));
         return customers;
     }

@@ -1,6 +1,7 @@
 package io.turntabl.springwebservice.configurations;
 
 import io.turntabl.springwebservice.models.Customer;
+import io.turntabl.springwebservice.pubsub.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,12 +36,5 @@ public class RedisConfig {
     public ChannelTopic topic() {
         return RedisTopics.customerUpdates;
     }
-
-    @Autowired
-    private Publisher publisher;
-
-    @Bean
-    public Publisher getPublisher(){
-        return publisher;
-    }
+    
 }

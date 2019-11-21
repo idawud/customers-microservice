@@ -1,6 +1,6 @@
 package io.turntabl.springwebservice.configurations;
 
-/**
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.listener.ChannelTopic;
 
@@ -18,4 +18,3 @@ public class RedisTopics {
         public static final ChannelTopic customerAccess = new ChannelTopic(access_topic);
         public static final ChannelTopic customerDBQueriesResult = new ChannelTopic(query_topic);
 }
-*/

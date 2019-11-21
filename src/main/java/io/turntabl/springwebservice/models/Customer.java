@@ -1,7 +1,7 @@
 package io.turntabl.springwebservice.models;
 
 public class Customer {
-    private int id;
+    private long id;
     private String name;
     private String address;
     private String telephoneNumber;
@@ -10,11 +10,11 @@ public class Customer {
     public Customer() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

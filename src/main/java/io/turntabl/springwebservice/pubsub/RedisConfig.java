@@ -19,12 +19,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class RedisConfig {
-    @Value("${spring.redis.topic}")
-    String update_topic;
-
-    @Value("${spring.redis.topic2}")
-    public String access_topic;
-
     public RedisConfig() {
     }
 
@@ -45,7 +39,7 @@ public class RedisConfig {
 
     @Bean
     public ChannelTopic topic() {
-        return new ChannelTopic(update_topic);
+        return Topics.customerUpdates;
     }
 
 

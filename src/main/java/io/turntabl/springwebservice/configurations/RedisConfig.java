@@ -36,5 +36,5 @@ public class RedisConfig {
     public ChannelTopic topic() {
         return RedisTopics.customerUpdates;
     }
-    
+
 }

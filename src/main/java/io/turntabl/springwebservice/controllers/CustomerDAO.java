@@ -11,15 +11,22 @@ public class CustomerDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Customer> getAllCustomers(){
+    List<Customer> getAllCustomers(){
         List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers",
                 BeanPropertyRowMapper.newInstance(Customer.class));
         return customers;
     }
 
-    public List<Customer> getCustomerByName(String name){
+    List<Customer> getCustomerByName(String name){
         List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE LOWER(name) LIKE ?" ,
                 new Object []{ "%" + name.toLowerCase() + "%"},
+                BeanPropertyRowMapper.newInstance(Customer.class));
+        return customers;
+    }
+
+    Customer getCustomerById(Integer id){
+        Customer customers = jdbcTemplate.queryForObject("SELECT * FROM customers WHERE id = ?" ,
+                new Object []{ id },
                 BeanPropertyRowMapper.newInstance(Customer.class));
         return customers;
     }

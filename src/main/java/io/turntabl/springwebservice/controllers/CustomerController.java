@@ -26,11 +26,20 @@ public class CustomerController {
     }
 
     @ApiOperation("get customers by name")
-    @GetMapping("/customer/name")
+    @GetMapping("/customer/search/name")
     public List<Customer> getCustomerByName(
             @RequestParam(name = "name", defaultValue = "")
             String name
     ){
         return dao.getCustomerByName(name);
+    }
+
+    @ApiOperation("get customers by id")
+    @GetMapping("/customer/search/id")
+    public Customer getCustomerById(
+            @RequestParam(name = "name", defaultValue = "")
+                    Integer id
+    ){
+        return dao.getCustomerById(id);
     }
 }

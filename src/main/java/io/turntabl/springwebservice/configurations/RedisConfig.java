@@ -1,22 +1,17 @@
-package io.turntabl.springwebservice.pubsub;
+package io.turntabl.springwebservice.configurations;
 
-import io.turntabl.springwebservice.SpringWebServiceApplication;
+import io.turntabl.springwebservice.pubsub.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
-import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
 @Configuration
 public class RedisConfig {
     public RedisConfig() {
@@ -39,7 +34,7 @@ public class RedisConfig {
 
     @Bean
     public ChannelTopic topic() {
-        return Topics.customerUpdates;
+        return RedisTopics.customerUpdates;
     }
 
     @Autowired
@@ -50,3 +45,4 @@ public class RedisConfig {
         return publisher;
     }
 }
+*/

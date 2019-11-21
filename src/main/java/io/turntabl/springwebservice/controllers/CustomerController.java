@@ -46,6 +46,7 @@ public class CustomerController {
     public Customer addNewCustomer(
             @RequestBody Customer customer
     ){
+        redisMessagePublisher.publish("");
         return dao.addNewCustomer(customer);
     }
 

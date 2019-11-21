@@ -21,7 +21,7 @@ public class CustomerController {
     }
 
     @ApiOperation("get customers by name")
-    @GetMapping("/customer/search/name")
+    @GetMapping("/customer/search")
     public List<Customer> getCustomerByName(
             @RequestParam(name = "name", defaultValue = "")
             String name
@@ -52,6 +52,7 @@ public class CustomerController {
             @RequestBody Customer customer
     ){
         Customer customerById = dao.getCustomerById(id);
+
         customerById.setEmail(customer.getEmail());
         customerById.setAddress(customer.getAddress());
         customerById.setTelephoneNumber(customer.getTelephoneNumber());

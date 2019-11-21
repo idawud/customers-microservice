@@ -44,4 +44,12 @@ public class CustomerDAO {
                 customerById.getEmail(), customerById.getId());
         return customerById;
     }
+
+     Customer deleteCustomer(long id) {
+        Customer customer = getCustomerById(id);
+        if (customer != null) {
+            jdbcTemplate.update("DELETE FROM customers WHERE id = ?", id);
+        }
+        return customer;
+    }
 }

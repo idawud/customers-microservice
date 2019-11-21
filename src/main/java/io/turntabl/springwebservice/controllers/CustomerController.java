@@ -50,7 +50,7 @@ public class CustomerController {
         return dao.addNewCustomer(customer);
     }
 
-    @ApiOperation("add new customer")
+    @ApiOperation("update record of an existing customer")
     @PutMapping(value = "/customer/update/{id}", consumes = "application/json", produces = "application/json")
     public Customer updateCustomer(
             @PathVariable("id") long id,
@@ -63,5 +63,15 @@ public class CustomerController {
         customerById.setName(customer.getName());
 
         return dao.updateCustomer(customerById);
+    }
+
+    @ApiOperation("delete record of an existing customer")
+    @DeleteMapping(value = "/customer/delete/{id}")
+    public Customer deleteCustomer(
+            @PathVariable("id") long id
+    ){
+        Customer customerById = dao.getCustomerById(id);
+
+        return dao.deleteCustomer(id);
     }
 }

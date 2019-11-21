@@ -7,10 +7,9 @@ import io.turntabl.springwebservice.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @Api
@@ -43,5 +42,11 @@ public class CustomerController {
         return dao.getCustomerById(id);
     }
 
-    @ApiOperation()
+    @ApiOperation("add new customer")
+    @PostMapping(value = "/customer/create", consumes = "application/json", produces = "application/json")
+    public Customer addNewCustomer(
+            @RequestBody Customer customer
+    ){
+        return dao.addNewCustomer(customer);
+    }
 }

@@ -32,10 +32,13 @@ public class CustomerDAO {
     }
 
     Customer getCustomerById(Long id){
-        Customer customers = jdbcTemplate.queryForObject("SELECT * FROM customers WHERE active = 'yes' AND id = ?" ,
+        List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'yes' AND id = ?" ,
                 new Object []{ id },
                 BeanPropertyRowMapper.newInstance(Customer.class));
-        return customers;
+        if ( customers.size() > 0){
+            return customers.get(0);
+        }
+        return new Customer();
     }
 
     Customer addNewCustomer(Customer customer){
@@ -59,10 +62,13 @@ public class CustomerDAO {
     }
 
      Customer retrieveDeletedCustomer(long id) {
-         Customer customer = jdbcTemplate.queryForObject("SELECT * FROM customers WHERE active = 'no' AND id = ?" ,
+         List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'no' AND id = ?" ,
                  new Object []{ id },
                  BeanPropertyRowMapper.newInstance(Customer.class));
-        jdbcTemplate.update("UPDATE customers SET active = 'yes' WHERE active = 'no' AND id = ?", id);
-        return customer;
+         if ( customers.size() > 0){
+             jdbcTemplate.update("UPDATE customers SET active = 'yes' WHERE active = 'no' AND id = ?", id);
+             return customers.get(0);
+         }
+         return new Customer();
     }
 }

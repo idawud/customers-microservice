@@ -30,4 +30,10 @@ public class CustomerDAO {
                 BeanPropertyRowMapper.newInstance(Customer.class));
         return customers;
     }
+
+    int addNewCustomer(Customer customer){
+        int status = jdbcTemplate.update("INSERT INTO customers( name, address, telephoneNumber, email) VALUES ( ?, ?, ?, ?)",
+                customer.getName(), customer.getAddress(), customer.getTelephoneNumber(), customer.getEmail());
+        return status;
+    }
 }

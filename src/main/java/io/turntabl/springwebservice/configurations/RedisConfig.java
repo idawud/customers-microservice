@@ -1,5 +1,5 @@
 package io.turntabl.springwebservice.configurations;
-
+/**
 import io.turntabl.springwebservice.pubsub.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-/**
+
 @Configuration
 public class RedisConfig {
     public RedisConfig() {

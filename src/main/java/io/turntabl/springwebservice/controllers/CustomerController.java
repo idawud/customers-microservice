@@ -17,14 +17,12 @@ import java.util.List;
 @RestController
 public class CustomerController {
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private CustomerDAO dao;
 
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
     public List<Customer> getCustomer(){
-        List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers",
-                BeanPropertyRowMapper.newInstance(Customer.class));
-        return customers;
+        return dao.getAllCustomers();
     }
 
     @ApiOperation("get customers by name")
@@ -33,9 +31,6 @@ public class CustomerController {
             @RequestParam(name = "name", defaultValue = "")
             String name
     ){
-        List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE LOWER(name) LIKE ?" ,
-                new Object []{ "%" + name.toLowerCase() + "%"},
-                BeanPropertyRowMapper.newInstance(Customer.class));
-        return customers;
+        return dao.getCustomerByName(name);
     }
 }

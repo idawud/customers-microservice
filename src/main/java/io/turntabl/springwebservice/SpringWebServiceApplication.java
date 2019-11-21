@@ -20,29 +20,13 @@ public class SpringWebServiceApplication {
 	}
 
 	@Bean
-	public DataSource dbConnect(){
+	public DataSource dbConnect() {
 		return new DriverManagerDataSource("jdbc:postgresql://localhost/tcms", "dawud", "dawud");
 	}
 
 	@Bean
-    public CustomerDAO getCustomerDAO(){
-	    return new CustomerDAO();
-    }
-
-
-	@Bean
-	public RedisTemplate<String, Object> redisTemplate() {
-		RedisTemplate<String, Object> template = new RedisTemplate<>();
-		template.setConnectionFactory(jedisConnectionFactory());
-		return template;
+	public CustomerDAO getCustomerDAO() {
+		return new CustomerDAO();
 	}
 
-	@Bean
-	JedisConnectionFactory jedisConnectionFactory() {
-		JedisConnectionFactory jedisConFactory
-				= new JedisConnectionFactory();
-		jedisConFactory.setHostName("localhost");
-		jedisConFactory.setPort(6379);
-		return jedisConFactory;
-	}
 }

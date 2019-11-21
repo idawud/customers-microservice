@@ -1,15 +1,14 @@
 package io.turntabl.springwebservice.controllers;
 
-import com.fasterxml.jackson.databind.BeanProperty;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.turntabl.springwebservice.models.Customer;
+import io.turntabl.springwebservice.pubsub.Publisher;
+import io.turntabl.springwebservice.pubsub.Topics;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @Api
@@ -18,6 +17,9 @@ public class CustomerController {
     @Autowired
     private CustomerDAO dao;
 
+    @Autowired
+    private Publisher redisMessagePublisherUpdates;
+
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
     public List<Customer> getCustomer(){
@@ -25,7 +27,7 @@ public class CustomerController {
     }
 
     @ApiOperation("get customers by name")
-    @GetMapping("/customer/search/name")
+    @GetMapping("/customer/search")
     public List<Customer> getCustomerByName(
             @RequestParam(name = "name", defaultValue = "")
             String name
@@ -34,10 +36,9 @@ public class CustomerController {
     }
 
     @ApiOperation("get customers by id")
-    @GetMapping("/customer/search/id")
+    @GetMapping("/customer/search/{id}")
     public Customer getCustomerById(
-            @RequestParam(name = "name", defaultValue = "")
-                    Long id
+            @PathVariable("id") long id
     ){
         return dao.getCustomerById(id);
     }
@@ -47,6 +48,7 @@ public class CustomerController {
     public Customer addNewCustomer(
             @RequestBody Customer customer
     ){
+        redisMessagePublisherUpdates.publish(customer);
         return dao.addNewCustomer(customer);
     }
 
@@ -57,11 +59,13 @@ public class CustomerController {
             @RequestBody Customer customer
     ){
         Customer customerById = dao.getCustomerById(id);
+
         customerById.setEmail(customer.getEmail());
         customerById.setAddress(customer.getAddress());
         customerById.setTelephoneNumber(customer.getTelephoneNumber());
         customerById.setName(customer.getName());
 
+        redisMessagePublisherUpdates.publish(customer);
         return dao.updateCustomer(customerById);
     }
 

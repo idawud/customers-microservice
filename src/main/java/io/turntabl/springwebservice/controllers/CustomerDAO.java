@@ -47,17 +47,13 @@ public class CustomerDAO {
 
      Customer deleteCustomer(long id) {
         Customer customer = getCustomerById(id);
-        if (customer != null) {
-            int status = jdbcTemplate.update("UPDATE customers SET active = 'no' WHERE active = 'yes' AND id = ?", id);
-        }
+        jdbcTemplate.update("UPDATE customers SET active = 'no' WHERE active = 'yes' AND id = ?", id);
         return customer;
     }
 
      Customer retrieveDeletedCustomer(long id) {
         Customer customer = getCustomerById(id);
-        if (customer != null) {
-            int status = jdbcTemplate.update("UPDATE customers SET active = 'yes' WHERE active = 'no' AND id = ?", id);
-        }
+        jdbcTemplate.update("UPDATE customers SET active = 'yes' WHERE active = 'no' AND id = ?", id);
         return customer;
     }
 }

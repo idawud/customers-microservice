@@ -18,6 +18,6 @@ public class SpringWebServiceApplication {
 
 	@Bean
 	public DataSource dbConnect(){
-		return new DriverManagerDataSource("jdbc:postgresql://localhost/bookshop", null, null);
+		return new DriverManagerDataSource("jdbc:postgresql://localhost/tcms", "dawud", "dawud");
 	}
 }

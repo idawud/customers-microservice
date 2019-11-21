@@ -21,8 +21,8 @@ public class CustomerController {
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
     public List<Customer> getCustomer(){
-        List<Customer> query = jdbcTemplate.query("select * from customers",
+        List<Customer> customers = jdbcTemplate.query("select * from customers",
                 BeanPropertyRowMapper.newInstance(Customer.class));
-        return query;
+        return customers;
     }
 }

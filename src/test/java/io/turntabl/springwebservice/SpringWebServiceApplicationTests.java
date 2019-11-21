@@ -7,8 +7,7 @@
  @SpringBootTest
  class SpringWebServiceApplicationTests {
 
- @Test
- void contextLoads() {
- }
+ //@Test
+ //void contextLoads() { }
 
  }

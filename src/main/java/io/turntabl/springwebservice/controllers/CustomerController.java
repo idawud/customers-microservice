@@ -4,7 +4,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.turntabl.springwebservice.models.Customer;
 import io.turntabl.springwebservice.pubsub.Publisher;
+import io.turntabl.springwebservice.pubsub.Topics;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +18,7 @@ public class CustomerController {
     private CustomerDAO dao;
 
     @Autowired
-    private Publisher redisMessagePublisher;
+    private Publisher redisMessagePublisherUpdates;
 
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
@@ -46,7 +48,7 @@ public class CustomerController {
     public Customer addNewCustomer(
             @RequestBody Customer customer
     ){
-        redisMessagePublisher.publish(customer);
+        redisMessagePublisherUpdates.publish(customer);
         return dao.addNewCustomer(customer);
     }
 
@@ -63,6 +65,7 @@ public class CustomerController {
         customerById.setTelephoneNumber(customer.getTelephoneNumber());
         customerById.setName(customer.getName());
 
+        redisMessagePublisherUpdates.publish(customer);
         return dao.updateCustomer(customerById);
     }
 

@@ -42,7 +42,6 @@ public class RedisConfig {
         return Topics.customerUpdates;
     }
 
-
     @Autowired
     private Publisher publisher;
 

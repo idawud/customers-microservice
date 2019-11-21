@@ -12,7 +12,7 @@ public class CustomerDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    List<Customer> getAllCustomers(){
+    public List<Customer> getAllCustomers(){
         List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'yes'",
                 BeanPropertyRowMapper.newInstance(Customer.class));
         if ( customers.size() > 0) {
@@ -21,7 +21,7 @@ public class CustomerDAO {
         return new ArrayList<>();
     }
 
-    List<Customer> getCustomerByName(String name){
+    public List<Customer> getCustomerByName(String name){
         List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'yes' AND LOWER(name) LIKE ?" ,
                 new Object []{ "%" + name.toLowerCase() + "%"},
                 BeanPropertyRowMapper.newInstance(Customer.class));
@@ -31,7 +31,7 @@ public class CustomerDAO {
         return new ArrayList<>();
     }
 
-    Customer getCustomerById(Long id){
+    public Customer getCustomerById(Long id){
         List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'yes' AND id = ?" ,
                 new Object []{ id },
                 BeanPropertyRowMapper.newInstance(Customer.class));
@@ -41,13 +41,13 @@ public class CustomerDAO {
         return new Customer();
     }
 
-    Customer addNewCustomer(Customer customer){
+    public Customer addNewCustomer(Customer customer){
          int status = jdbcTemplate.update("INSERT INTO customers( name, address, telephoneNumber, email) VALUES ( ?, ?, ?, ?)",
                 customer.getName(), customer.getAddress(), customer.getTelephoneNumber(), customer.getEmail());
         return customer;
     }
 
-    Customer updateCustomer(Customer customerById) {
+    public Customer updateCustomer(Customer customerById) {
         int status = jdbcTemplate.update("UPDATE customers SET name = ?, address = ?, telephoneNumber = ?, email = ? " +
                 " WHERE active = 'yes' AND id = ? ",
                 customerById.getName(), customerById.getAddress(), customerById.getTelephoneNumber(),
@@ -55,13 +55,13 @@ public class CustomerDAO {
         return customerById;
     }
 
-     Customer deleteCustomer(long id) {
+     public Customer deleteCustomer(long id) {
         Customer customer = getCustomerById(id);
         jdbcTemplate.update("UPDATE customers SET active = 'no' WHERE active = 'yes' AND id = ?", id);
         return customer;
     }
 
-     Customer retrieveDeletedCustomer(long id) {
+     public Customer retrieveDeletedCustomer(long id) {
          List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'no' AND id = ?" ,
                  new Object []{ id },
                  BeanPropertyRowMapper.newInstance(Customer.class));

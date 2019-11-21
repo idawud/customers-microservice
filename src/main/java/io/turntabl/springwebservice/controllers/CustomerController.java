@@ -37,7 +37,7 @@ public class CustomerController {
     @GetMapping("/customer/search/id")
     public Customer getCustomerById(
             @RequestParam(name = "name", defaultValue = "")
-                    Integer id
+                    Long id
     ){
         return dao.getCustomerById(id);
     }
@@ -48,5 +48,20 @@ public class CustomerController {
             @RequestBody Customer customer
     ){
         return dao.addNewCustomer(customer);
+    }
+
+    @ApiOperation("add new customer")
+    @PutMapping(value = "/customer/update/{id}", consumes = "application/json", produces = "application/json")
+    public Customer updateCustomer(
+            @PathVariable("id") long id,
+            @RequestBody Customer customer
+    ){
+        Customer customerById = dao.getCustomerById(id);
+        customerById.setEmail(customer.getEmail());
+        customerById.setAddress(customer.getAddress());
+        customerById.setTelephoneNumber(customer.getTelephoneNumber());
+        customerById.setName(customer.getName());
+
+        return dao.updateCustomer(customerById);
     }
 }

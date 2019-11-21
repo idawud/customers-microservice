@@ -24,7 +24,7 @@ public class CustomerDAO {
         return customers;
     }
 
-    Customer getCustomerById(Integer id){
+    Customer getCustomerById(Long id){
         Customer customers = jdbcTemplate.queryForObject("SELECT * FROM customers WHERE id = ?" ,
                 new Object []{ id },
                 BeanPropertyRowMapper.newInstance(Customer.class));
@@ -35,5 +35,13 @@ public class CustomerDAO {
          jdbcTemplate.update("INSERT INTO customers( name, address, telephoneNumber, email) VALUES ( ?, ?, ?, ?)",
                 customer.getName(), customer.getAddress(), customer.getTelephoneNumber(), customer.getEmail());
         return customer;
+    }
+
+    Customer updateCustomer(Customer customerById) {
+        jdbcTemplate.update("UPDATE customers SET name = ?, address = ?, telephoneNumber = ?, email = ? " +
+                " WHERE id = ? ",
+                customerById.getName(), customerById.getAddress(), customerById.getTelephoneNumber(),
+                customerById.getEmail(), customerById.getId());
+        return customerById;
     }
 }

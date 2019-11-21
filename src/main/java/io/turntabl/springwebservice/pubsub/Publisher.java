@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class Publisher implements MessagePublisher {
-
     private final RedisTemplate< String, Object > template;
     private final ChannelTopic topic;
 

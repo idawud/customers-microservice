@@ -4,8 +4,6 @@ import io.turntabl.springwebservice.controllers.CustomerDAO;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 

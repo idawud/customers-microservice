@@ -1,6 +1,7 @@
 package io.turntabl.springwebservice.pubsub;
 
 import io.turntabl.springwebservice.SpringWebServiceApplication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -47,11 +48,12 @@ public class RedisConfig {
         return new ChannelTopic(update_topic);
     }
 
+
+    @Autowired
+    private Publisher publisher;
+
     @Bean
-    public Publisher redisMessagePublisher(){
-        String args = null;
-        ConfigurableApplicationContext context = SpringApplication.run(SpringWebServiceApplication.class, args);
-        Publisher redisMessagePublisher = context.getBean(Publisher.class);
-        return redisMessagePublisher;
+    public Publisher getPublisher(){
+        return publisher;
     }
 }

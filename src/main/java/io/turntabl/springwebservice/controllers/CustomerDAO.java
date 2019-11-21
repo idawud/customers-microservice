@@ -52,7 +52,9 @@ public class CustomerDAO {
     }
 
      Customer retrieveDeletedCustomer(long id) {
-        Customer customer = getCustomerById(id);
+         Customer customer = jdbcTemplate.queryForObject("SELECT * FROM customers WHERE active = 'no' AND id = ?" ,
+                 new Object []{ id },
+                 BeanPropertyRowMapper.newInstance(Customer.class));
         jdbcTemplate.update("UPDATE customers SET active = 'yes' WHERE active = 'no' AND id = ?", id);
         return customer;
     }

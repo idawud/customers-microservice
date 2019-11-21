@@ -26,14 +26,13 @@ public class CustomerController {
     @ApiOperation("get customers by name")
     @GetMapping("/customer/search")
     public List<Customer> getCustomerByName(
-            @RequestParam(name = "name", defaultValue = "")
             String name
     ){
         return dao.getCustomerByName(name);
     }
 
     @ApiOperation("get customers by id")
-    @GetMapping("/customer/search/{id}")
+    @GetMapping("/customer/{id}")
     public Customer getCustomerById(
             @PathVariable("id") long id
     ){
@@ -41,7 +40,7 @@ public class CustomerController {
     }
 
     @ApiOperation("add new customer")
-    @PostMapping(value = "/customer/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/customer", consumes = "application/json", produces = "application/json")
     public Customer addNewCustomer(
             @RequestBody Customer customer
     ){
@@ -50,7 +49,7 @@ public class CustomerController {
     }
 
     @ApiOperation("update record of an existing customer")
-    @PutMapping(value = "/customer/update/{id}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/customer/{id}", consumes = "application/json", produces = "application/json")
     public Customer updateCustomer(
             @PathVariable("id") long id,
             @RequestBody Customer customer
@@ -67,14 +66,14 @@ public class CustomerController {
     }
 
     @ApiOperation("delete record of an existing customer")
-    @DeleteMapping(value = "/customer/delete/{id}")
+    @DeleteMapping(value = "/customer/{id}")
     public Customer deleteCustomer(
             @PathVariable("id") long id
     ){
         return dao.deleteCustomer(id);
     }
 
-    @ApiOperation("delete record of an existing customer")
+    @ApiOperation("retrieve record of an deleted customer")
     @PutMapping(value = "/customer/retrieve/{id}")
     public Customer retrieveCustomer(
             @PathVariable("id") long id

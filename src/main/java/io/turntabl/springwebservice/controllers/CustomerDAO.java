@@ -25,7 +25,10 @@ public class CustomerDAO {
         List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'yes' AND LOWER(name) LIKE ?" ,
                 new Object []{ "%" + name.toLowerCase() + "%"},
                 BeanPropertyRowMapper.newInstance(Customer.class));
-        return customers;
+        if ( customers.size() > 0) {
+            return customers;
+        }
+        return new ArrayList<>();
     }
 
     Customer getCustomerById(Long id){

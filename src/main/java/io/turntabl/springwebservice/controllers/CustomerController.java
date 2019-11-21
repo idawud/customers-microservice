@@ -74,7 +74,7 @@ public class CustomerController {
     }
 
     @ApiOperation("retrieve record of an deleted customer")
-    @PutMapping(value = "/customer/retrieve/{id}")
+    @GetMapping(value = "/customer/retrieve/{id}")
     public Customer retrieveCustomer(
             @PathVariable("id") long id
     ){

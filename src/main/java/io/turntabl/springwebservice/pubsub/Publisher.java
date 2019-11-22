@@ -1,5 +1,5 @@
 package io.turntabl.springwebservice.pubsub;
-
+/*
 import io.turntabl.springwebservice.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,3 +23,4 @@ public class Publisher implements MessagePublisher {
         template.convertAndSend(topic.getTopic(), customer);
     }
 }
+*/

@@ -19,7 +19,7 @@ public class CustomerController {
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
     public List<Customer> getCustomer(){
-        Publisher.publish(String.format("all customers [ACCESS]"));
+        Publisher.publish("all customers [ACCESS]");
         return dao.getAllCustomers();
     }
 

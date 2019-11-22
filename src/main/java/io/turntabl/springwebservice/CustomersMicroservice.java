@@ -8,9 +8,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication
-public class SpringWebServiceApplication {
+public class CustomersMicroservice {
 	public static void main(String[] args) {
-		SpringApplication.run(SpringWebServiceApplication.class, args);
+		SpringApplication.run(CustomersMicroservice.class, args);
 
 	}
 

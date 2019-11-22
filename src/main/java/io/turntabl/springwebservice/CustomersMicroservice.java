@@ -1,6 +1,6 @@
 package io.turntabl.springwebservice;
 
-import io.turntabl.springwebservice.DAO.CustomerDAO;
+import io.turntabl.springwebservice.Services.CustomerService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +15,8 @@ public class CustomersMicroservice {
 	}
 
 	@Bean
-	public CustomerDAO getCustomerDAO() {
-		return new CustomerDAO();
+	public CustomerService getCustomerDAO() {
+		return new CustomerService();
 	}
 
 }

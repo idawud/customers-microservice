@@ -1,4 +1,4 @@
-package io.turntabl.springwebservice.DAO;
+package io.turntabl.springwebservice.Services;
 
 import io.turntabl.springwebservice.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAO {
+public class CustomerService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

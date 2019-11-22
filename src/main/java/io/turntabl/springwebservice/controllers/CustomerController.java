@@ -2,7 +2,7 @@ package io.turntabl.springwebservice.controllers;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.turntabl.springwebservice.DAO.CustomerDAO;
+import io.turntabl.springwebservice.Services.CustomerService;
 import io.turntabl.springwebservice.models.Customer;
 import io.turntabl.springwebservice.pubsub.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 public class CustomerController {
     @Autowired
-    private CustomerDAO dao;
+    private CustomerService dao;
 
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")

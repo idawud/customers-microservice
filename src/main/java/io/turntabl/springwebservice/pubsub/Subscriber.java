@@ -16,6 +16,6 @@ public class Subscriber extends RedisConnection{
                 // handle message
                 System.out.println("log me.......");
             }
-        }, "customers");
+        }, "customers","projects");
     }
 }

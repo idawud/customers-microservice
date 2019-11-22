@@ -19,7 +19,7 @@ public class CustomerController {
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
     public List<Customer> getCustomer(){
-        Publisher.publish("all records accessed" );
+        Publisher.publish(String.format("all customers [ACCESS]"));
         return dao.getAllCustomers();
     }
 
@@ -28,7 +28,7 @@ public class CustomerController {
     public List<Customer> getCustomerByName(
             String name
     ){
-        Publisher.publish("customer with name " + name + " accessed" );
+        Publisher.publish(String.format("customer with name= %s [ACCESS]", name));
         return dao.getCustomerByName(name);
     }
 
@@ -37,7 +37,7 @@ public class CustomerController {
     public Customer getCustomerById(
             @PathVariable("id") long id
     ){
-        Publisher.publish("customer with name " + id + " accessed" );
+        Publisher.publish(String.format("customer with id= %s [ACCESS]", id));
         return dao.getCustomerById(id);
     }
 
@@ -46,7 +46,7 @@ public class CustomerController {
     public Customer addNewCustomer(
             @RequestBody Customer customer
     ){
-        //redisMessagePublisherUpdates.publish(customer);
+        Publisher.publish(String.format("customer with name= %s, email= %s added[UPDATE]", customer.getEmail(), customer.getName()));
         return dao.addNewCustomer(customer);
     }
 
@@ -63,7 +63,7 @@ public class CustomerController {
         customerById.setTelephoneNumber(customer.getTelephoneNumber());
         customerById.setName(customer.getName());
 
-       // redisMessagePublisherUpdates.publish(customer);
+        Publisher.publish(String.format("customer with id= %d, name= %s, email= %s update[UPDATE]", id, customer.getEmail(), customer.getName()));
         return dao.updateCustomer(customerById);
     }
 
@@ -72,6 +72,7 @@ public class CustomerController {
     public Customer deleteCustomer(
             @PathVariable("id") long id
     ){
+        Publisher.publish(String.format("customer with id= %d deleted[DELETE]",id));
         return dao.deleteCustomer(id);
     }
 
@@ -80,6 +81,7 @@ public class CustomerController {
     public Customer retrieveCustomer(
             @PathVariable("id") long id
     ){
+        Publisher.publish(String.format("customer with id= %d deleted[RETRIEVE]",id));
         return dao.retrieveDeletedCustomer(id);
     }
 }

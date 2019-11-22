@@ -20,6 +20,8 @@ public class CustomerController {
     @GetMapping("/customer")
     public List<Customer> getCustomer(){
         Publisher.publish("all customers [ACCESS]");
+        System.out.println("PUBLISHED PUBLISHED PUBLISHED");
+        System.err.println("PUBLISHED PUBLISHED PUBLISHED");
         return dao.getAllCustomers();
     }
 

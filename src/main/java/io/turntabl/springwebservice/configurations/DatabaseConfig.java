@@ -1,6 +1,7 @@
 package io.turntabl.springwebservice.configurations;
 
 import com.zaxxer.hikari.*;
+import io.turntabl.springwebservice.pubsub.Publisher;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.*;
@@ -25,7 +26,7 @@ public class DatabaseConfig {
             dbUri = new URI(databaseUrl);
         }
         catch (URISyntaxException ignored) {
-            //log.error(String.format("Invalid DATABASE_URL: %s", databaseUrl), e);
+            Publisher.publish(String.format("Invalid DATABASE_URL= %s [ERROR]", databaseUrl));
             return null;
         }
 
@@ -40,6 +41,7 @@ public class DatabaseConfig {
                 .url(dbUrl)
                 .username(username)
                 .build();
+        Publisher.publish(String.format("DATABASE_URL Connection Successful= %s [CONNECT]", databaseUrl));
         return dataSource;
     }
 

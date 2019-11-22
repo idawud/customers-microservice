@@ -10,7 +10,7 @@ public class Publisher extends RedisConnection {
     public static void publish(String message){
         try (
                 Jedis jedis = getPool().getResource()){
-            jedis.publish("customers", LocalDateTime.now().toString() + " : " + message);
+            jedis.publish("customers",  "Message : " + message);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

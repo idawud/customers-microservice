@@ -6,8 +6,8 @@ import redis.clients.jedis.JedisPoolConfig;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class RedisConnection {
-    protected static JedisPool getPool() throws URISyntaxException {
+class RedisConnection {
+    static JedisPool getPool() throws URISyntaxException {
         URI redisURI = new URI(System.getenv("REDIS_URL"));
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxTotal(10);

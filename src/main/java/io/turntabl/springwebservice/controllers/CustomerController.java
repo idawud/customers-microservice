@@ -2,7 +2,7 @@ package io.turntabl.springwebservice.controllers;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.turntabl.springwebservice.DAOs.CustomerDAO;
+import io.turntabl.springwebservice.DAO.CustomerDAO;
 import io.turntabl.springwebservice.models.Customer;
 import io.turntabl.springwebservice.pubsub.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +28,7 @@ public class CustomerController {
     public List<Customer> getCustomerByName(
             String name
     ){
+        Publisher.publish("customer with name " + name + " accessed" );
         return dao.getCustomerByName(name);
     }
 
@@ -36,6 +37,7 @@ public class CustomerController {
     public Customer getCustomerById(
             @PathVariable("id") long id
     ){
+        Publisher.publish("customer with name " + id + " accessed" );
         return dao.getCustomerById(id);
     }
 

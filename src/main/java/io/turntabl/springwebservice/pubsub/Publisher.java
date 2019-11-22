@@ -1,10 +1,6 @@
 package io.turntabl.springwebservice.pubsub;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 

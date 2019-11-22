@@ -20,11 +20,9 @@ public class DatabaseConfig {
     @Profile("postgres")
     public DataSource postgresDataSource() {
         String databaseUrl = System.getenv("DATABASE_URL");
-        System.out.println("DB_URL: " + databaseUrl +".........................\n");
         URI dbUri;
         try {
             dbUri = new URI(databaseUrl);
-            System.out.println("DB_URI: " + dbUri +".........................\n");
         }
         catch (URISyntaxException ignored) {
             Publisher.publish(String.format("Invalid DATABASE_URL= %s [ERROR]", databaseUrl));

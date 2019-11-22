@@ -1,26 +1,34 @@
 package io.turntabl.springwebservice.pubsub;
-/*
-import io.turntabl.springwebservice.models.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
-import org.springframework.stereotype.Service;
 
-@Service
-public class Publisher implements MessagePublisher {
-    private final RedisTemplate< String, Customer > template;
-    private final ChannelTopic topic;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
-    @Autowired
-    public Publisher(final RedisTemplate< String, Customer > template,
-                     ChannelTopic topic) {
-        this.template = template;
-        this.topic = topic;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+
+
+public class Publisher {
+    private static JedisPool getPool() throws URISyntaxException {
+        URI redisURI = new URI(System.getenv("REDIS_URL"));
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
+        poolConfig.setMaxTotal(10);
+        poolConfig.setMaxIdle(5);
+        poolConfig.setMinIdle(1);
+        poolConfig.setTestOnBorrow(true);
+        poolConfig.setTestOnReturn(true);
+        poolConfig.setTestWhileIdle(true);
+        JedisPool pool = new JedisPool(poolConfig, redisURI);
+        return pool;
     }
 
-    @Override
-    public void publish(Customer customer) {
-        template.convertAndSend(topic.getTopic(), customer);
+    public static void publish(String message){
+        try (
+                Jedis jedis = getPool().getResource()){
+            jedis.publish("customers", LocalDateTime.now().toString() + " : " + message);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }
-*/

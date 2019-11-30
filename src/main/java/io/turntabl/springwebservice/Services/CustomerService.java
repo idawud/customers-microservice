@@ -81,4 +81,13 @@ public class CustomerService {
         }
         return new ArrayList<>();
     }
+
+    public List<Customer> getAllDeletedCustomers() {
+        List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'no'",
+                BeanPropertyRowMapper.newInstance(Customer.class));
+        if ( customers.size() > 0) {
+            return customers;
+        }
+        return new ArrayList<>();
+    }
 }

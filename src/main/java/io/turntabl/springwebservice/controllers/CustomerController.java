@@ -23,6 +23,13 @@ public class CustomerController {
         return service.getAllCustomers();
     }
 
+    @ApiOperation("Get all customers in record")
+    @GetMapping("/customer/r")
+    public List<Customer> getCustomerR(){
+        Publisher.publish("all customers [ACCESS]");
+        return service.getAllDeletedCustomers();
+    }
+
     @ApiOperation("get customers by name")
     @GetMapping("/customer/search")
     public List<Customer> getCustomerByName(
@@ -34,7 +41,7 @@ public class CustomerController {
 
     @ApiOperation("get customers by name")
     @GetMapping("/customer/search/r")
-    public List<Customer> getCustomerByName(
+    public List<Customer> getCustomerByNameR(
             String name
     ){
         Publisher.publish(String.format("customer with name= %s [ACCESS]", name));

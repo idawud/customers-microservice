@@ -14,13 +14,13 @@ import java.util.List;
 @RestController
 public class CustomerController {
     @Autowired
-    private CustomerService dao;
+    private CustomerService service;
 
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
     public List<Customer> getCustomer(){
         Publisher.publish("all customers [ACCESS]");
-        return dao.getAllCustomers();
+        return service.getAllCustomers();
     }
 
     @ApiOperation("get customers by name")
@@ -29,7 +29,16 @@ public class CustomerController {
             String name
     ){
         Publisher.publish(String.format("customer with name= %s [ACCESS]", name));
-        return dao.getCustomerByName(name);
+        return service.getCustomerByName(name);
+    }
+
+    @ApiOperation("get customers by name")
+    @GetMapping("/customer/search/r")
+    public List<Customer> getCustomerByName(
+            String name
+    ){
+        Publisher.publish(String.format("customer with name= %s [ACCESS]", name));
+        return service.getDeletedCustomerByName(name);
     }
 
     @ApiOperation("get customers by id")
@@ -38,7 +47,7 @@ public class CustomerController {
             @PathVariable("id") long id
     ){
         Publisher.publish(String.format("customer with id= %s [ACCESS]", id));
-        return dao.getCustomerById(id);
+        return service.getCustomerById(id);
     }
 
     @ApiOperation("add new customer")
@@ -47,7 +56,7 @@ public class CustomerController {
             @RequestBody Customer customer
     ){
         Publisher.publish(String.format("customer with name= %s, email= %s added[UPDATE]", customer.getEmail(), customer.getName()));
-        return dao.addNewCustomer(customer);
+        return service.addNewCustomer(customer);
     }
 
     @ApiOperation("update record of an existing customer")
@@ -56,7 +65,7 @@ public class CustomerController {
             @PathVariable("id") long id,
             @RequestBody Customer customer
     ){
-        Customer customerById = dao.getCustomerById(id);
+        Customer customerById = service.getCustomerById(id);
 
         customerById.setEmail(customer.getEmail());
         customerById.setAddress(customer.getAddress());
@@ -64,16 +73,16 @@ public class CustomerController {
         customerById.setName(customer.getName());
 
         Publisher.publish(String.format("customer with id= %d, name= %s, email= %s update[UPDATE]", id, customer.getEmail(), customer.getName()));
-        return dao.updateCustomer(customerById);
+        return service.updateCustomer(customerById);
     }
 
     @ApiOperation("delete record of an existing customer")
-    @DeleteMapping(value = "/customer/{id}")
+    @DeleteMapping(value = "/customer/{id}", produces = "application/json")
     public Customer deleteCustomer(
             @PathVariable("id") long id
     ){
         Publisher.publish(String.format("customer with id= %d deleted[DELETE]",id));
-        return dao.deleteCustomer(id);
+        return service.deleteCustomer(id);
     }
 
     @ApiOperation("retrieve record of an deleted customer")
@@ -82,6 +91,6 @@ public class CustomerController {
             @PathVariable("id") long id
     ){
         Publisher.publish(String.format("customer with id= %d deleted[RETRIEVE]",id));
-        return dao.retrieveDeletedCustomer(id);
+        return service.retrieveDeletedCustomer(id);
     }
 }

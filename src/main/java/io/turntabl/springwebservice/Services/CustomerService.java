@@ -71,4 +71,14 @@ public class CustomerService {
          }
          return new Customer();
     }
+
+    public List<Customer> getDeletedCustomerByName(String name) {
+        List<Customer> customers = jdbcTemplate.query("SELECT * FROM customers WHERE active = 'no' AND LOWER(name) LIKE ?" ,
+                new Object []{ "%" + name.toLowerCase() + "%"},
+                BeanPropertyRowMapper.newInstance(Customer.class));
+        if ( customers.size() > 0) {
+            return customers;
+        }
+        return new ArrayList<>();
+    }
 }

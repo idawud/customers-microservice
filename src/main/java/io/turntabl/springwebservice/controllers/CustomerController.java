@@ -18,6 +18,7 @@ public class CustomerController {
 
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Customer> getCustomer(){
         Publisher.publish("all customers [ACCESS]");
         return service.getAllCustomers();
@@ -59,6 +60,7 @@ public class CustomerController {
 
     @ApiOperation("add new customer")
     @PostMapping(value = "/customer", consumes = "application/json", produces = "application/json")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Customer addNewCustomer(
             @RequestBody Customer customer
     ){

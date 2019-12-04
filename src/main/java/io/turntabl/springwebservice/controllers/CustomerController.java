@@ -12,7 +12,6 @@ import java.util.List;
 
 @Api
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CustomerController {
     @Autowired
     private CustomerService service;

@@ -12,13 +12,14 @@ import java.util.List;
 
 @Api
 @RestController
+// @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CustomerController {
     @Autowired
     private CustomerService service;
 
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @CrossOrigin(origins = "*")
     public List<Customer> getCustomer(){
         Publisher.publish("all customers [ACCESS]");
         return service.getAllCustomers();
@@ -60,7 +61,7 @@ public class CustomerController {
 
     @ApiOperation("add new customer")
     @PostMapping(value = "/customer", consumes = "application/json", produces = "application/json")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @CrossOrigin(origins = "*")
     public Customer addNewCustomer(
             @RequestBody Customer customer
     ){

@@ -31,9 +31,10 @@ public class CustomerController {
         Publisher.publish("all customers [ACCESS]");
         return service.getAllDeletedCustomers();
     }
-
+    
     @ApiOperation("get customers by name")
     @GetMapping("/customer/search")
+    @CrossOrigin(origins = "*")
     public List<Customer> getCustomerByName(
             String name
     ){
@@ -52,6 +53,7 @@ public class CustomerController {
 
     @ApiOperation("get customers by id")
     @GetMapping("/customer/{id}")
+    @CrossOrigin(origins = "*")
     public Customer getCustomerById(
             @PathVariable("id") long id
     ){
@@ -71,6 +73,7 @@ public class CustomerController {
 
     @ApiOperation("update record of an existing customer")
     @PutMapping(value = "/customer/{id}", consumes = "application/json", produces = "application/json")
+    @CrossOrigin(origins = "*")
     public Customer updateCustomer(
             @PathVariable("id") long id,
             @RequestBody Customer customer
@@ -87,6 +90,7 @@ public class CustomerController {
     }
 
     @ApiOperation("delete record of an existing customer")
+    @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/customer/{id}", produces = "application/json")
     public Customer deleteCustomer(
             @PathVariable("id") long id

@@ -11,7 +11,7 @@ class RedisConnection {
         URI redisURI = new URI(System.getenv("REDIS_URL"));
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxTotal(10);
-        poolConfig.setMaxIdle(5);
+        poolConfig.setMaxIdle(4);
         poolConfig.setMinIdle(1);
         poolConfig.setTestOnBorrow(true);
         poolConfig.setTestOnReturn(true);

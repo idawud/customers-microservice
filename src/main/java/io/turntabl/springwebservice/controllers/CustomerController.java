@@ -12,14 +12,13 @@ import java.util.List;
 
 @Api
 @RestController
-// @CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 public class CustomerController {
     @Autowired
     private CustomerService service;
 
     @ApiOperation("Get all customers in record")
     @GetMapping("/customer")
-    @CrossOrigin(origins = "*")
     public List<Customer> getCustomer(){
         Publisher.publish("all customers [ACCESS]");
         return service.getAllCustomers();
@@ -33,8 +32,7 @@ public class CustomerController {
     }
     
     @ApiOperation("get customers by name")
-    @GetMapping("/customer/search")
-    @CrossOrigin(origins = "*")
+    @GetMapping("/customer/search") 
     public List<Customer> getCustomerByName(
             String name
     ){
@@ -52,8 +50,7 @@ public class CustomerController {
     }
 
     @ApiOperation("get customers by id")
-    @GetMapping("/customer/{id}")
-    @CrossOrigin(origins = "*")
+    @GetMapping("/customer/{id}") 
     public Customer getCustomerById(
             @PathVariable("id") long id
     ){
@@ -62,8 +59,7 @@ public class CustomerController {
     }
 
     @ApiOperation("add new customer")
-    @PostMapping(value = "/customer", consumes = "application/json", produces = "application/json")
-    @CrossOrigin(origins = "*")
+    @PostMapping(value = "/customer", consumes = "application/json", produces = "application/json") 
     public Customer addNewCustomer(
             @RequestBody Customer customer
     ){
@@ -72,8 +68,7 @@ public class CustomerController {
     }
 
     @ApiOperation("update record of an existing customer")
-    @PutMapping(value = "/customer/{id}", consumes = "application/json", produces = "application/json")
-    @CrossOrigin(origins = "*")
+    @PutMapping(value = "/customer/{id}", consumes = "application/json", produces = "application/json") 
     public Customer updateCustomer(
             @PathVariable("id") long id,
             @RequestBody Customer customer
@@ -89,8 +84,7 @@ public class CustomerController {
         return service.updateCustomer(customerById);
     }
 
-    @ApiOperation("delete record of an existing customer")
-    @CrossOrigin(origins = "*")
+    @ApiOperation("delete record of an existing customer") 
     @DeleteMapping(value = "/customer/{id}", produces = "application/json")
     public Customer deleteCustomer(
             @PathVariable("id") long id
